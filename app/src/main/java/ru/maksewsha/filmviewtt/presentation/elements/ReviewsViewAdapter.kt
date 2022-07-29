@@ -72,7 +72,7 @@ class ReviewsViewAdapter(private val context: Context) :
     override fun getItemCount() = reviewList.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == reviewList.size - 1 && isLoadingAdded) ViewType.LOADING.value else ViewType.ITEM.value
+        return if (position == reviewList.size - 2 && isLoadingAdded) ViewType.LOADING.value else ViewType.ITEM.value
     }
 
     fun addLoadingFooter() {

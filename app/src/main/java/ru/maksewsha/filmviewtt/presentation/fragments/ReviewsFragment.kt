@@ -1,6 +1,7 @@
 package ru.maksewsha.filmviewtt.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -13,10 +14,16 @@ import ru.maksewsha.filmviewtt.presentation.elements.PaginateScrollListener
 import ru.maksewsha.filmviewtt.presentation.elements.ReviewsViewAdapter
 import ru.maksewsha.filmviewtt.presentation.model.ReviewPresentation
 import ru.maksewsha.filmviewtt.presentation.viewmodels.ReviewsViewModel
+import javax.inject.Inject
 
 class ReviewsFragment : Fragment(R.layout.reviews_fragment) {
 
     private lateinit var reviewsRecycler: RecyclerView
+    @Inject
+    lateinit var reviewsViewAdapter: ReviewsViewAdapter
+    @Inject
+    lateinit var linearLayoutManager: LinearLayoutManager
+
 
     private val reviewsViewModel by activityViewModels<ReviewsViewModel>()
 
@@ -25,9 +32,8 @@ class ReviewsFragment : Fragment(R.layout.reviews_fragment) {
 
         reviewsRecycler = view.findViewById(R.id.recycler_view)
 
-        reviewsRecycler.adapter = ReviewsViewAdapter(requireContext())
-        reviewsRecycler.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        reviewsRecycler.adapter = reviewsViewAdapter
+        reviewsRecycler.layoutManager = linearLayoutManager
         reviewsRecycler.addOnScrollListener(object :
             PaginateScrollListener(reviewsRecycler.layoutManager as LinearLayoutManager) {
             override fun loadMoreItems() {

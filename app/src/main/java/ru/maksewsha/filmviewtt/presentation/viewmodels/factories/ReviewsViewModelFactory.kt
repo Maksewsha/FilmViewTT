@@ -6,20 +6,13 @@ import ru.maksewsha.filmviewtt.data.network.RetrofitService
 import ru.maksewsha.filmviewtt.data.repository.NetworkRepository
 import ru.maksewsha.filmviewtt.domain.usecases.GetAllReviewsCase
 import ru.maksewsha.filmviewtt.presentation.viewmodels.ReviewsViewModel
+import javax.inject.Inject
 
 class ReviewsViewModelFactory: ViewModelProvider.Factory {
 
-    private val retrofitService by lazy {
-        RetrofitService.getInstance()
-    }
+    @Inject
+    lateinit var getAllReviewsCase: GetAllReviewsCase
 
-    private val networkRepository by lazy{
-        NetworkRepository(retrofitService)
-    }
+    override fun <T : ViewModel> create(modelClass: Class<T>) = ReviewsViewModel(getAllReviewsCase) as T
 
-    private val getAllReviewsCase by lazy{
-        GetAllReviewsCase(networkRepository)
-    }
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>) = ReviewsViewModel(getAllReviewsCase) as T
 }

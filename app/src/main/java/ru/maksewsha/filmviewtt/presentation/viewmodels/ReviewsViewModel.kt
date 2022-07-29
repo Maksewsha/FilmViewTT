@@ -10,9 +10,12 @@ import ru.maksewsha.filmviewtt.domain.usecases.GetAllReviewsCase
 import ru.maksewsha.filmviewtt.presentation.model.ReviewPresentation
 import ru.maksewsha.filmviewtt.presentation.model.entity.ReviewPresentationEntity
 import ru.maksewsha.filmviewtt.presentation.utils.PresentationMapper
+import javax.inject.Inject
 
 class ReviewsViewModel(private val getAllReviewsCase: GetAllReviewsCase): ViewModel() {
-    private val mapper = PresentationMapper()
+
+    @Inject
+    lateinit var mapper: PresentationMapper
 
     private val _reviews = MutableLiveData<List<ReviewPresentation>>()
     val reviews = _reviews as LiveData<List<ReviewPresentation>>
@@ -54,6 +57,4 @@ class ReviewsViewModel(private val getAllReviewsCase: GetAllReviewsCase): ViewMo
         }
         switchToNextPage()
     }
-
-
 }
