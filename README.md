@@ -1,7 +1,14 @@
-<h1 align="center">FilmViewTT</h1>
+<h1 align="center">FilmViewTT - Single-activity app</h1>
 <h3 align="center">Tech task</h3>
 For http-working - <b>Retrofit</b>.<br>
 For image loading - <b>Glide</b>.<br>
 Used <b>Android KTX</b> from <b>Android Jetpack</b> for view models.<br>
 For dependency injection - <b>Dagger 2</b>.<br>
-RecycleView with pagination.
+Used <b>MVVM pattern</b> and <b>Clean architecture</b>.<br>
+
+Приложение Single-Activity, splash-screen и основная логика находятся на двух разных фрагментах. Это позволяет сделать приложение более стабильным, так как фрагменты - более легковесные. А также это делает экраны реюзабельными.
+Использовал MVVM паттерн, это позволяет разделить UI от основной логики, что делает код расширяемым, легче тестируемым. А также открывает возможности к параллельной разработке.
+Использовал Clean Architecture - архитектурный подход к построению приложений, позволяющий совершать разработку параллельно, переиспользовать большие блоки логики работы приложения(бизнес-логика).
+Для обработки изображений использован Glide, для сетевых запросов использован Retrofit, для внедрения зависимостей - Dagger 2.
+В качестве вспомогательных инструментов - Android KTX из Android Jetpack.
+Для списка реализована пагинация через собственную реализацию слушателя события по окончании скролла.
