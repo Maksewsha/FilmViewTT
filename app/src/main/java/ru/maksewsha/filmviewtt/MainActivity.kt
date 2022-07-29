@@ -1,10 +1,15 @@
 package ru.maksewsha.filmviewtt
 
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +47,16 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_container_view, SplashFragment(), ReviewsFragment::class.java.canonicalName)
             .commit()
 
+
+        val actionBar: ActionBar? = supportActionBar
+        if (actionBar != null) actionBar.hide()
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+
         reviewsViewModel.toggleLoading()
         reviewsViewModel.loadNextPage()
 
@@ -50,6 +65,9 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container_view, reviewsFragment, ReviewsFragment::class.java.canonicalName)
                     .commit()
+
+                if (actionBar != null) actionBar.show()
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
             }
         })
 
